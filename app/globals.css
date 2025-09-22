@@ -118,5 +118,48 @@
   }
   body {
     @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
+}
+
+/* Theme transition effects */
+html {
+  transition: background-color 0.3s ease;
+}
+
+/* Enhanced dark mode styles for better visibility */
+.dark {
+  /* Better contrast for jewelry website */
+  --enhanced-amber: #fbbf24;
+  --enhanced-amber-hover: #f59e0b;
+}
+
+/* Smooth theme transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Dark mode dropdown enhancements */
+.dark .bg-white\/98 {
+  background-color: rgb(31 41 55 / 0.98);
+}
+
+.dark .shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+/* Theme toggle dropdown overlay fix */
+[data-slot="dropdown-menu-portal"] {
+  z-index: 9999999 !important;
+}
+
+[data-slot="dropdown-menu-content"] {
+  z-index: 9999999 !important;
+  position: fixed !important;
+}
+
+/* Ensure theme dropdown appears above everything */
+.theme-dropdown-overlay {
+  z-index: 9999999 !important;
+  position: fixed !important;
 }
