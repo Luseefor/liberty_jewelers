@@ -24,11 +24,17 @@ export default function Home() {
             <div className="flex h-16 items-center justify-between">
               {/* Logo */}
               <Link href="/" className="flex items-center space-x-2">
-                <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-8 items-center justify-center rounded-lg shadow-lg">
-                  <Crown className="size-5" />
+                <div className="flex size-10 items-center justify-center rounded-lg shadow-lg overflow-hidden bg-white">
+                  <Image 
+                    src="/liberty-logo.png" 
+                    alt="Liberty Gold & Diamonds Logo" 
+                    width={40} 
+                    height={40}
+                    className="object-contain"
+                  />
                 </div>
                 <span className="text-xl font-bold bg-gradient-to-r from-amber-600 to-yellow-700 bg-clip-text text-transparent">
-                  Liberty Jewelers
+                  Liberty Gold & Diamonds
                 </span>
               </Link>
 
@@ -71,7 +77,21 @@ export default function Home() {
                   </Link>
                 </SignedOut>
                 <SignedIn>
-                  <UserButton afterSignOutUrl="/" />
+                  <div className="relative" style={{ zIndex: 9999999 }}>
+                    <UserButton 
+                      afterSignOutUrl="/" 
+                      appearance={{
+                        elements: {
+                          avatarBox: "w-8 h-8",
+                          userButtonPopoverCard: "z-[9999999] !important",
+                          userButtonPopover: "z-[9999999] !important",
+                          popoverCard: "z-[9999999] !important",
+                          modalBackdrop: "z-[9999999] !important",
+                          modal: "z-[9999999] !important"
+                        }
+                      }}
+                    />
+                  </div>
                 </SignedIn>
               </div>
             </div>
@@ -302,6 +322,12 @@ export default function Home() {
                   <Button size="lg" className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white">
                     Shop Collections
                   </Button>
+                  <Link href="/checkout">
+                    <Button size="lg" variant="outline" className="border-2 border-green-600 text-green-700 hover:bg-green-600 hover:text-white dark:border-green-400 dark:text-green-400 dark:hover:bg-green-400 dark:hover:text-gray-900 transition-all duration-200 bg-transparent w-full sm:w-auto">
+                      <CreditCard className="w-4 h-4 mr-2" />
+                      Try Checkout Demo
+                    </Button>
+                  </Link>
                   <Button size="lg" variant="outline" className="border-2 border-amber-600 text-amber-700 hover:bg-amber-600 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-200 bg-transparent">
                     Custom Design
                   </Button>
@@ -428,7 +454,7 @@ export default function Home() {
                 <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-8 items-center justify-center rounded-lg">
                   <Crown className="size-5" />
                 </div>
-                <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Jewelers</span>
+                <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Gold & Diamonds</span>
               </div>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Creating timeless jewelry pieces that celebrate life's most precious moments since 1985.
@@ -474,7 +500,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">info@libertyjewelers.com</span>
+                  <span className="text-gray-600 dark:text-gray-400">info@libertygolddiamonds.com</span>
                 </div>
               </div>
             </div>
@@ -503,7 +529,7 @@ export default function Home() {
           
           <div className="border-t border-gray-300 dark:border-gray-800 mt-12 pt-8 text-center">
             <p className="text-gray-600 dark:text-gray-400">
-              © 2025 Liberty Jewelers. All rights reserved.
+              © 2025 Liberty Gold & Diamonds. All rights reserved.
             </p>
             <div className="mt-2">
               <Link 

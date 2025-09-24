@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Label } from '@/components/ui/label'
 import { 
   Plus, 
   Edit, 
@@ -89,6 +90,9 @@ export default function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState('')
   const [jewelry, setJewelry] = useState<JewelryItem[]>(mockJewelry)
   const [isAdminVerified, setIsAdminVerified] = useState(false)
+  const [showImportModal, setShowImportModal] = useState(false)
+  const [csvFile, setCsvFile] = useState<File | null>(null)
+  const [isImporting, setIsImporting] = useState(false)
 
   useEffect(() => {
     // Check admin verification
@@ -130,6 +134,94 @@ export default function AdminDashboard() {
     sessionStorage.removeItem('admin_verified')
     sessionStorage.removeItem('admin_timestamp')
     router.push('/')
+  }
+
+  const handleExportData = () => {
+    // Convert jewelry data to CSV
+    const csvData = jewelry.map(item => ({
+      name: item.name,
+      category: item.category,
+      subcategory: item.subcategory,
+      price: item.price,
+      salePrice: item.salePrice || '',
+      quantity: item.quantity,
+      inStock: item.inStock,
+      description: item.description,
+      materials: item.materials.join(';'),
+      gemstones: item.gemstones?.join(';') || '',
+      size: item.size || '',
+      weight: item.weight || ''
+    }))
+
+    // Create CSV content
+    const headers = Object.keys(csvData[0] || {})
+    const csvContent = [
+      headers.join(','),
+      ...csvData.map(row => headers.map(header => `"${row[header as keyof typeof row] || ''}"`).join(','))
+    ].join('\n')
+
+    // Download CSV file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(blob)
+    link.setAttribute('href', url)
+    link.setAttribute('download', `jewelry_inventory_${new Date().toISOString().split('T')[0]}.csv`)
+    link.style.visibility = 'hidden'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  const handleImportCSV = async () => {
+    if (!csvFile) return
+
+    setIsImporting(true)
+    try {
+      const text = await csvFile.text()
+      const lines = text.split('\n')
+      const headers = lines[0].split(',').map(h => h.replace(/"/g, '').trim())
+      
+      const newItems: JewelryItem[] = []
+      
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim()
+        if (!line) continue
+        
+        const values = line.split(',').map(v => v.replace(/"/g, '').trim())
+        const item: JewelryItem = {
+          id: `imported_${Date.now()}_${i}`,
+          name: values[headers.indexOf('name')] || '',
+          category: values[headers.indexOf('category')] as any || 'rings',
+          subcategory: values[headers.indexOf('subcategory')] || '',
+          price: parseFloat(values[headers.indexOf('price')] || '0'),
+          salePrice: values[headers.indexOf('salePrice')] ? parseFloat(values[headers.indexOf('salePrice')]) : undefined,
+          inStock: values[headers.indexOf('inStock')] === 'true',
+          quantity: parseInt(values[headers.indexOf('quantity')] || '0'),
+          description: values[headers.indexOf('description')] || '',
+          images: [],
+          materials: values[headers.indexOf('materials')]?.split(';').filter(Boolean) || [],
+          gemstones: values[headers.indexOf('gemstones')]?.split(';').filter(Boolean) || [],
+          size: values[headers.indexOf('size')] || '',
+          weight: values[headers.indexOf('weight')] || '',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+        
+        if (item.name) {
+          newItems.push(item)
+        }
+      }
+      
+      setJewelry(prev => [...prev, ...newItems])
+      setShowImportModal(false)
+      setCsvFile(null)
+      alert(`Successfully imported ${newItems.length} items!`)
+    } catch (error) {
+      console.error('Import error:', error)
+      alert('Error importing CSV. Please check the file format.')
+    } finally {
+      setIsImporting(false)
+    }
   }
 
   const stats = {
@@ -234,18 +326,20 @@ export default function AdminDashboard() {
                 Add New Item
               </Button>
             </Link>
-            <Button variant="outline">
+            <Button variant="outline" onClick={() => setShowImportModal(true)}>
               <Upload className="h-4 w-4 mr-2" />
               Import CSV
             </Button>
-            <Button variant="outline">
+            <Button variant="outline" onClick={handleExportData}>
               <Download className="h-4 w-4 mr-2" />
               Export Data
             </Button>
-            <Button variant="outline">
-              <Settings className="h-4 w-4 mr-2" />
-              Store Settings
-            </Button>
+            <Link href="/admin/settings">
+              <Button variant="outline">
+                <Settings className="h-4 w-4 mr-2" />
+                Store Settings
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -350,6 +444,61 @@ export default function AdminDashboard() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Import Modal */}
+        {showImportModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 w-full max-w-md">
+              <h3 className="text-lg font-semibold mb-4">Import Jewelry CSV</h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="csvFile">Select CSV File</Label>
+                  <input
+                    id="csvFile"
+                    type="file"
+                    accept=".csv"
+                    onChange={(e) => setCsvFile(e.target.files?.[0] || null)}
+                    className="w-full px-3 py-2 border rounded-md mt-1"
+                  />
+                </div>
+                
+                <div className="text-sm text-gray-600">
+                  <p className="font-medium mb-2">CSV Format Required:</p>
+                  <p className="text-xs">name,category,subcategory,price,quantity,description,materials,gemstones</p>
+                  <p className="text-xs mt-1">Materials and gemstones should be separated by semicolons (;)</p>
+                  <a 
+                    href="/sample_jewelry_import.csv" 
+                    download
+                    className="text-amber-600 hover:text-amber-700 text-xs underline mt-2 inline-block"
+                  >
+                    Download Sample CSV Template
+                  </a>
+                </div>
+                
+                <div className="flex gap-3">
+                  <Button 
+                    onClick={handleImportCSV} 
+                    disabled={!csvFile || isImporting}
+                    className="flex-1 bg-amber-600 hover:bg-amber-700"
+                  >
+                    {isImporting ? 'Importing...' : 'Import'}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => {
+                      setShowImportModal(false)
+                      setCsvFile(null)
+                    }}
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -28,7 +28,7 @@ export default function ClearancePage() {
   ]
 
   return (
-    <PageLayout title="Clearance Sale - Liberty Jewelers">
+    <PageLayout title="Clearance Sale - Liberty Gold & Diamonds">
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-red-600 via-rose-600 to-orange-600">
         <div className="absolute inset-0 opacity-20">

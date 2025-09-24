@@ -73,16 +73,19 @@ export default function AdminLoginPage() {
           </div>
           <CardTitle className="text-2xl font-bold">Admin Access</CardTitle>
           <CardDescription>
-            Secure access to Liberty Jewelers admin panel
+            Secure access to Liberty Gold & Diamonds admin panel
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* User Info */}
           <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
             <User className="h-5 w-5 text-gray-600" />
-            <div>
+            <div className="flex-1">
               <div className="font-medium text-sm">{user?.fullName || 'User'}</div>
               <div className="text-xs text-gray-600">{userEmail}</div>
+              <div className="text-xs text-gray-500 mt-1">
+                Auth Status: {isAuthorizedEmail ? '✅ Authorized' : '❌ Not Authorized'}
+              </div>
             </div>
           </div>
 
@@ -96,9 +99,11 @@ export default function AdminLoginPage() {
               <p className="text-sm text-red-700">
                 Your email address is not authorized for admin access. Please contact the store owner.
               </p>
-              <div className="mt-3">
-                <p className="text-xs text-red-600">
-                  Authorized emails must be added to the admin whitelist.
+              <div className="mt-3 p-2 bg-red-100 rounded text-xs">
+                <p className="text-red-600 font-medium">Your email: {userEmail}</p>
+                <p className="text-red-600">Expected: ghimirerijan199@gmail.com</p>
+                <p className="text-red-500 mt-1">
+                  Make sure you're signed in with the correct Gmail account.
                 </p>
               </div>
             </div>

@@ -28,7 +28,7 @@ export default function OutletPage() {
   ]
 
   return (
-    <PageLayout title="Outlet Store - Liberty Jewelers">
+    <PageLayout title="Outlet Store - Liberty Gold & Diamonds">
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-purple-600 via-violet-600 to-indigo-600">
         <div className="absolute inset-0 opacity-20">

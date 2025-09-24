@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import {
   Gem,
   Heart,
@@ -208,12 +209,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <div className="flex items-center gap-2 px-2 py-4 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
-          <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-8 items-center justify-center rounded-lg shadow-lg">
-            <Crown className="size-5" />
+          <div className="flex size-10 items-center justify-center rounded-lg shadow-lg overflow-hidden bg-white">
+            <Image 
+              src="/liberty-logo.png" 
+              alt="Liberty Gold & Diamonds Logo" 
+              width={40} 
+              height={40}
+              className="object-contain"
+            />
           </div>
           <div className="flex flex-col group-data-[collapsible=icon]:hidden">
             <span className="text-lg font-bold bg-gradient-to-r from-amber-600 to-yellow-700 bg-clip-text text-transparent">
-              Liberty Jewelers
+              Liberty Gold & Diamonds
             </span>
             <span className="text-xs text-muted-foreground">
               Exquisite Collections

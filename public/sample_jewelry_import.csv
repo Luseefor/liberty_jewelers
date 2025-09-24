@@ -1,0 +1,6 @@
+name,category,subcategory,price,salePrice,quantity,inStock,description,materials,gemstones,size,weight
+"Diamond Engagement Ring","rings","engagement",2500,2000,5,true,"Beautiful 1ct diamond engagement ring in 14k white gold","14k White Gold","Diamond","6","3.2g"
+"Pearl Necklace","necklaces","pearls",850,,12,true,"Elegant freshwater pearl necklace","Sterling Silver","Freshwater Pearls","18 inches","15g"
+"Gold Stud Earrings","earrings","studs",450,,8,true,"Classic 14k gold stud earrings","14k Gold","","","2.1g"
+"Tennis Bracelet","bracelets","tennis",1200,999,3,true,"Sparkling diamond tennis bracelet","18k White Gold","Diamond","7 inches","12g"
+"Luxury Watch","watches","luxury",3500,,2,true,"Swiss movement luxury timepiece","Stainless Steel;Leather","","42mm","120g"

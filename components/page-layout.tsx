@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Crown, Search, Heart, ShoppingBag, Menu } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -24,7 +25,7 @@ export default function PageLayout({ children, title, description }: PageLayoutP
                   <Crown className="size-5" />
                 </div>
                 <span className="text-xl font-bold bg-gradient-to-r from-amber-600 to-yellow-700 bg-clip-text text-transparent">
-                  Liberty Jewelers
+                  Liberty Gold & Diamonds
                 </span>
               </Link>
 
@@ -110,7 +111,7 @@ export default function PageLayout({ children, title, description }: PageLayoutP
                 <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-8 items-center justify-center rounded-lg">
                   <Crown className="size-5" />
                 </div>
-                <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Jewelers</span>
+                <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Gold & Diamonds</span>
               </div>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Creating timeless jewelry pieces that celebrate life's most precious moments since 1985.
@@ -143,7 +144,7 @@ export default function PageLayout({ children, title, description }: PageLayoutP
               <div className="space-y-3">
                 <p className="text-gray-600 dark:text-gray-400">123 Main Street<br />New York, NY 10001</p>
                 <p className="text-gray-600 dark:text-gray-400">(410) 365-2187</p>
-                <p className="text-gray-600 dark:text-gray-400">info@libertyjewelers.com</p>
+                <p className="text-gray-600 dark:text-gray-400">info@libertygolddiamonds.com</p>
               </div>
             </div>
             
@@ -162,7 +163,7 @@ export default function PageLayout({ children, title, description }: PageLayoutP
           
           <div className="border-t border-gray-300 dark:border-gray-800 mt-12 pt-8 text-center">
             <p className="text-gray-600 dark:text-gray-400">
-              © 2025 Liberty Jewelers. All rights reserved.
+              © 2025 Liberty Gold & Diamonds. All rights reserved.
             </p>
           </div>
         </div>

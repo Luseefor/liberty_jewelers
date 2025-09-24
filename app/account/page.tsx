@@ -5,7 +5,7 @@ import { User, Mail, Phone, MapPin, Edit, Shield, CreditCard } from 'lucide-reac
 
 export default function AccountPage() {
   return (
-    <PageLayout title="My Account - Liberty Jewelers">
+    <PageLayout title="My Account - Liberty Gold & Diamonds">
       {/* Account Overview */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-4xl mx-auto px-4">

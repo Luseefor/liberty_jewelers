@@ -28,7 +28,7 @@ export default function LastChancePage() {
   ]
 
   return (
-    <PageLayout title="Last Chance Sale - Liberty Jewelers">
+    <PageLayout title="Last Chance Sale - Liberty Gold & Diamonds">
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-orange-600 via-red-600 to-pink-600">
         <div className="absolute inset-0 opacity-20">

@@ -22,11 +22,22 @@ export function isUserAdmin(user: User | null): boolean {
 }
 
 /**
- * Verify admin password
+ * Verify admin password with rate limiting consideration
  */
 export function verifyAdminPassword(password: string): boolean {
   const adminPassword = process.env.ADMIN_PASSWORD
-  return adminPassword === password
+  
+  // Basic timing attack prevention
+  const isValid = adminPassword === password
+  
+  // Add a small delay to prevent timing attacks
+  const delay = Math.random() * 100 + 50
+  const start = Date.now()
+  while (Date.now() - start < delay) {
+    // Intentional delay
+  }
+  
+  return isValid
 }
 
 /**
@@ -41,8 +52,9 @@ export function getAdminEmails(): string[] {
  */
 export function isEmailAdmin(email: string): boolean {
   const adminEmails = [
-    'admin@libertyjewelers.com',
-    'owner@libertyjewelers.com'
+    'ghimirerijan199@gmail.com',
+    'admin@libertygolddiamonds.com',
+    'owner@libertygolddiamonds.com'
     // Add more admin emails here as needed
   ]
   

@@ -10,7 +10,7 @@ export default function LoginPage() {
             <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-6 items-center justify-center rounded-md">
               <Crown className="size-4" />
             </div>
-            Liberty Jewelers
+            Liberty Gold & Diamonds
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">

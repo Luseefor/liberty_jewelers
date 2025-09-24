@@ -31,10 +31,10 @@
 
 ### Default Configuration
 The system comes with these default admin emails (update them in `.env.local`):
-- `admin@libertyjewelers.com`
-- `owner@libertyjewelers.com`
+- `admin@libertygolddiamonds.com`
+- `owner@libertygolddiamonds.com`
 
-Default password: `LibertyJewelers2025!`
+Default password: `LibertyGoldDiamonds2025!`
 
 **⚠️ IMPORTANT**: Change these defaults before going live!
 

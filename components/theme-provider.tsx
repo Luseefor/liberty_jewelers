@@ -29,7 +29,7 @@ const ThemeProviderContext = React.createContext<ThemeProviderState>(initialStat
 export function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = "liberty-jewelers-theme",
+  storageKey = "liberty-gold-diamonds-theme",
   attribute = "class",
   defaultAttribute = "data-theme",
   themeValue,

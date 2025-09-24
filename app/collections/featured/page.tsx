@@ -28,7 +28,7 @@ export default function FeaturedPage() {
   return (
     <SubcategoryPage
       title="Featured Collection"
-      description="Our carefully curated featured collection showcases exceptional pieces that represent the best of Liberty Jewelers. These standout items embody superior craftsmanship and timeless elegance."
+      description="Our carefully curated featured collection showcases exceptional pieces that represent the best of Liberty Gold & Diamonds. These standout items embody superior craftsmanship and timeless elegance."
       icon={Star}
       parentCategory="Collections"
       parentLink="/collections"

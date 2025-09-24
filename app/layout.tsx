@@ -15,8 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Liberty Jewelers | Exquisite Fine Jewelry & Custom Designs",
-  description: "Discover luxury jewelry at Liberty Jewelers. From engagement rings to custom pieces, we offer the finest diamonds, gold, and precious gemstones. Quality craftsmanship since 1985.",
+  title: "Liberty Gold & Diamonds | Exquisite Fine Jewelry & Custom Designs",
+  description: "Discover luxury jewelry at Liberty Gold & Diamonds. From engagement rings to custom pieces, we offer the finest diamonds, gold, and precious gemstones. Quality craftsmanship since 1985.",
+  icons: {
+    icon: '/liberty-logo.png',
+    apple: '/liberty-logo.png',
+  },
 };
 
 export default function RootLayout({

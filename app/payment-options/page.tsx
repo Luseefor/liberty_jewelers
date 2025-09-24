@@ -66,7 +66,7 @@ export default function PaymentOptionsPage() {
   ]
 
   return (
-    <PageLayout title="Payment Options - Liberty Jewelers">
+    <PageLayout title="Payment Options - Liberty Gold & Diamonds">
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-green-50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-green-950/20">
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">

@@ -28,7 +28,7 @@ export default function SeasonalSalePage() {
   ]
 
   return (
-    <PageLayout title="Seasonal Sale - Liberty Jewelers">
+    <PageLayout title="Seasonal Sale - Liberty Gold & Diamonds">
       {/* Hero Section */}
       <section className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600">
         <div className="absolute inset-0 opacity-20">

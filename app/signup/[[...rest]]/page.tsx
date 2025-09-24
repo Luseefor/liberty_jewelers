@@ -10,7 +10,7 @@ export default function SignupPage() {
             <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-6 items-center justify-center rounded-md">
               <Crown className="size-4" />
             </div>
-            Liberty Jewelers
+            Liberty Gold & Diamonds
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
@@ -57,7 +57,7 @@ export default function SignupPage() {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-amber-700">
             <Crown className="w-24 h-24 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-2">Welcome to Liberty Jewelers</h2>
+            <h2 className="text-2xl font-bold mb-2">Welcome to Liberty Gold & Diamonds</h2>
             <p className="text-lg">Join our exclusive community</p>
             <p className="text-sm mt-2">Discover exquisite jewelry and personalized service</p>
           </div>

@@ -28,7 +28,7 @@ export default function NewArrivalsPage() {
   return (
     <SubcategoryPage
       title="New Arrivals"
-      description="Discover the latest additions to our jewelry collection. From contemporary designs to classic pieces with modern twists, explore what's new at Liberty Jewelers."
+      description="Discover the latest additions to our jewelry collection. From contemporary designs to classic pieces with modern twists, explore what's new at Liberty Gold & Diamonds."
       icon={Sparkles}
       parentCategory="Collections"
       parentLink="/collections"

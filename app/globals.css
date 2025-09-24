@@ -163,3 +163,23 @@ html {
   z-index: 9999999 !important;
   position: fixed !important;
 }
+
+/* Fix Clerk UserButton z-index issues */
+.cl-userButtonPopoverCard {
+  z-index: 9999999 !important;
+}
+
+.cl-userButtonPopover {
+  z-index: 9999999 !important;
+}
+
+.cl-popoverCard {
+  z-index: 9999999 !important;
+}
+
+/* Ensure all Clerk modal overlays appear above everything */
+.cl-modalBackdrop,
+.cl-modal,
+.cl-modalContent {
+  z-index: 9999999 !important;
+}
