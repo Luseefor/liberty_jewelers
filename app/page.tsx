@@ -1,551 +1,513 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Star, Shield, Truck, Award, Phone, Mail, MapPin, Instagram, Facebook, Twitter, Heart, Sparkles, ShoppingBag, Crown, Diamond, Watch, User, Search, Menu, ChevronDown, CreditCard, DollarSign, Calendar } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { ThemeToggle } from "@/components/theme-toggle";
+'use client'
 
-// Simple Badge component
-const Badge = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${className}`}>
-    {children}
-  </span>
-);
+import Link from 'next/link'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
+import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
+import { 
+  Search, 
+  User, 
+  Heart, 
+  ShoppingCart, 
+  ChevronDown,
+  Gem,
+  Award,
+  Shield,
+  Truck,
+  Sparkles,
+  Crown,
+  Watch,
+  Star,
+  ArrowRight,
+  Phone,
+  Mail,
+  MapPin,
+  Instagram,
+  Facebook,
+  Twitter
+} from 'lucide-react'
+import { Product, Collection } from '@/lib/types'
 
-export default function Home() {
+export default function LuxuryHomepage() {
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
+  const [collections, setCollections] = useState<Collection[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // Fetch featured products and collections
+    Promise.all([
+      fetch('/api/products?featured=true&limit=6').then(res => res.json()),
+      fetch('/api/collections').then(res => res.json())
+    ])
+    .then(([productsRes, collectionsRes]) => {
+      if (productsRes.success) setFeaturedProducts(productsRes.data)
+      if (collectionsRes.success) setCollections(collectionsRes.data)
+      setLoading(false)
+    })
+    .catch(error => {
+      console.error('Error loading data:', error)
+      setLoading(false)
+    })
+  }, [])
+
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Top Navigation */}
-      <header className="sticky top-0 w-full border-b bg-white/80 dark:bg-gray-900/80 backdrop-blur-md supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/70 border-gray-200/50 dark:border-gray-800/50" style={{zIndex: 999998}}>
-        {/* Main Header */}
-        <div className="border-b border-gray-100 dark:border-gray-800">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex h-16 items-center justify-between">
-              {/* Logo */}
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="flex size-10 items-center justify-center rounded-lg shadow-lg overflow-hidden bg-white">
-                  <Image 
-                    src="/liberty-logo.png" 
-                    alt="Liberty Gold & Diamonds Logo" 
-                    width={40} 
-                    height={40}
-                    className="object-contain"
-                  />
-                </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-amber-600 to-yellow-700 bg-clip-text text-transparent">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50/30 via-white to-amber-50/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      {/* Navigation Header */}
+      <header className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-amber-100/50 dark:border-gray-800/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-20 items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-3">
+              <div className="relative size-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 p-1 shadow-lg">
+                <Image 
+                  src="/liberty-logo.png" 
+                  alt="Liberty Gold & Diamonds" 
+                  width={44} 
+                  height={44}
+                  className="rounded-lg object-contain bg-white"
+                />
+              </div>
+              <div className="hidden sm:block">
+                <div className="text-xl font-bold bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
                   Liberty Gold & Diamonds
+                </div>
+                <div className="text-xs text-amber-600/70 font-medium tracking-wider uppercase">
+                  Fine Jewelry Since 1985
+                </div>
+              </div>
+            </Link>
+
+            {/* Main Navigation */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              <div className="relative group">
+                <Link href="/rings" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 transition-colors">
+                  <Gem className="h-4 w-4" />
+                  <span>Rings</span>
+                  <ChevronDown className="h-3 w-3" />
+                </Link>
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-amber-100 dark:border-gray-700 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                  <div className="p-3 space-y-1">
+                    <Link href="/rings/engagement" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                      Engagement Rings
+                    </Link>
+                    <Link href="/rings/wedding" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                      Wedding Bands
+                    </Link>
+                    <Link href="/rings/fashion" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                      Fashion Rings
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <Link href="/necklaces" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 transition-colors">
+                <Sparkles className="h-4 w-4" />
+                <span>Necklaces</span>
+              </Link>
+
+              <Link href="/earrings" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 transition-colors">
+                <Heart className="h-4 w-4" />
+                <span>Earrings</span>
+              </Link>
+
+              <Link href="/bracelets" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 transition-colors">
+                <Award className="h-4 w-4" />
+                <span>Bracelets</span>
+              </Link>
+
+              <Link href="/watches" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 transition-colors">
+                <Watch className="h-4 w-4" />
+                <span>Watches</span>
+              </Link>
+
+              <Link href="/custom" className="flex items-center space-x-1 text-sm font-medium text-amber-600 dark:text-amber-400 hover:text-amber-700 transition-colors">
+                <Crown className="h-4 w-4" />
+                <span>Custom</span>
+              </Link>
+            </nav>
+
+            {/* Right Section */}
+            <div className="flex items-center space-x-4">
+              <div className="hidden md:flex relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="pl-10 pr-4 py-2 w-64 border border-gray-200 dark:border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-400 bg-gray-50 dark:bg-gray-800"
+                />
+              </div>
+              
+              <Link href="/wishlist" className="p-2 text-gray-600 dark:text-gray-300 hover:text-amber-600 transition-colors">
+                <Heart className="h-5 w-5" />
+              </Link>
+              
+              <Link href="/cart" className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-amber-600 transition-colors">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 h-4 w-4 bg-amber-500 text-white text-xs rounded-full flex items-center justify-center">
+                  0
                 </span>
               </Link>
 
-              {/* Search Bar */}
-              <div className="hidden md:flex flex-1 max-w-md mx-8">
-                <div className="relative w-full">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 h-4 w-4" />
-                  <input
-                    type="text"
-                    placeholder="Search jewelry..."
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                  />
-                </div>
-              </div>
-
-              {/* Right Actions */}
-              <div className="flex items-center space-x-4">
-                <Link href="/wishlist">
-                  <Button variant="ghost" size="sm" className="hidden sm:flex">
-                    <Heart className="h-4 w-4 mr-2" />
-                    <span className="sr-only">Wishlist</span>
-                  </Button>
-                </Link>
-                <Link href="/cart">
-                  <Button variant="ghost" size="sm">
-                    <ShoppingBag className="h-4 w-4 mr-2" />
-                    <span className="sr-only">Cart</span>
-                  </Button>
-                </Link>
-                
-                {/* Theme Toggle */}
-                <ThemeToggle />
-                
-                {/* Clerk Auth */}
+              <div className="flex items-center space-x-2">
                 <SignedOut>
-                  <Link href="/login">
-                    <Button variant="outline" size="sm">
+                  <SignInButton>
+                    <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-300">
+                      <User className="h-4 w-4 mr-2" />
                       Sign In
                     </Button>
-                  </Link>
+                  </SignInButton>
                 </SignedOut>
                 <SignedIn>
-                  <div className="relative" style={{ zIndex: 9999999 }}>
-                    <UserButton 
-                      afterSignOutUrl="/" 
-                      appearance={{
-                        elements: {
-                          avatarBox: "w-8 h-8",
-                          userButtonPopoverCard: "z-[9999999] !important",
-                          userButtonPopover: "z-[9999999] !important",
-                          popoverCard: "z-[9999999] !important",
-                          modalBackdrop: "z-[9999999] !important",
-                          modal: "z-[9999999] !important"
-                        }
-                      }}
-                    />
-                  </div>
+                  <UserButton afterSignOutUrl="/" />
                 </SignedIn>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Navigation Subtopics */}
-        <div className="border-b border-gray-100 dark:border-gray-800">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <nav className="flex h-12 items-center space-x-4 lg:space-x-8" style={{overflow: 'visible'}}>
-              {/* All Collections Dropdown */}
-              <div className="relative group">
-                <Link href="/collections" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors whitespace-nowrap">
-                  <Sparkles className="h-4 w-4" />
-                  <span>All Collections</span>
-                  <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200" style={{zIndex: 999999, position: 'absolute'}}>
-                  <div className="p-2">
-                    <Link href="/collections/new-arrivals" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      New Arrivals
-                    </Link>
-                    <Link href="/collections/best-sellers" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Best Sellers
-                    </Link>
-                    <Link href="/collections/featured" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Featured
-                    </Link>
-                    <Link href="/collections/limited-edition" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Limited Edition
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              {/* Rings Dropdown */}
-              <div className="relative group">
-                <Link href="/rings" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors whitespace-nowrap">
-                  <Diamond className="h-4 w-4" />
-                  <span>Rings</span>
-                  <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
-                  <div className="p-2">
-                    <Link href="/rings/engagement" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Engagement Rings
-                    </Link>
-                    <Link href="/rings/wedding" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Wedding Bands
-                    </Link>
-                    <Link href="/rings/fashion" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Fashion Rings
-                    </Link>
-                    <Link href="/rings/vintage" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Vintage Rings
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              {/* Necklaces Dropdown */}
-              <div className="relative group">
-                <Link href="/necklaces" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors whitespace-nowrap">
-                  <Star className="h-4 w-4" />
-                  <span>Necklaces</span>
-                  <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
-                  <div className="p-2">
-                    <Link href="/necklaces/pendants" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Pendants
-                    </Link>
-                    <Link href="/necklaces/chains" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Chains
-                    </Link>
-                    <Link href="/necklaces/chokers" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Chokers
-                    </Link>
-                    <Link href="/necklaces/statement" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Statement Pieces
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              {/* Earrings Dropdown */}
-              <div className="relative group">
-                <Link href="/earrings" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors whitespace-nowrap">
-                  <Sparkles className="h-4 w-4" />
-                  <span>Earrings</span>
-                  <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
-                  <div className="p-2">
-                    <Link href="/earrings/studs" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Stud Earrings
-                    </Link>
-                    <Link href="/earrings/hoops" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Hoop Earrings
-                    </Link>
-                    <Link href="/earrings/drop" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Drop Earrings
-                    </Link>
-                    <Link href="/earrings/chandelier" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Chandelier Earrings
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              {/* Bracelets Dropdown */}
-              <div className="relative group">
-                <Link href="/bracelets" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors whitespace-nowrap">
-                  <Heart className="h-4 w-4" />
-                  <span>Bracelets</span>
-                  <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
-                  <div className="p-2">
-                    <Link href="/bracelets/tennis" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Tennis Bracelets
-                    </Link>
-                    <Link href="/bracelets/charm" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Charm Bracelets
-                    </Link>
-                    <Link href="/bracelets/bangles" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Bangles
-                    </Link>
-                    <Link href="/bracelets/cuff" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Cuff Bracelets
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              {/* Watches Dropdown */}
-              <div className="relative group">
-                <Link href="/watches" className="flex items-center space-x-1 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors whitespace-nowrap">
-                  <Watch className="h-4 w-4" />
-                  <span>Watches</span>
-                  <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
-                  <div className="p-2">
-                    <Link href="/watches/luxury" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Luxury Watches
-                    </Link>
-                    <Link href="/watches/sports" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Sports Watches
-                    </Link>
-                    <Link href="/watches/classic" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Classic Watches
-                    </Link>
-                    <Link href="/watches/smart" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Smart Watches
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              {/* Custom Design Dropdown */}
-              <div className="relative group">
-                <Link href="/custom" className="flex items-center space-x-1 text-sm font-medium text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors whitespace-nowrap">
-                  <Crown className="h-4 w-4" />
-                  <span>Custom Design</span>
-                  <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200" style={{zIndex: 999999, position: 'absolute'}}>
-                  <div className="p-2">
-                    <Link href="/custom/engagement-rings" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Custom Engagement Rings
-                    </Link>
-                    <Link href="/custom/wedding-bands" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Custom Wedding Bands
-                    </Link>
-                    <Link href="/custom/necklaces" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Custom Necklaces
-                    </Link>
-                    <Link href="/custom/consultation" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
-                      Design Consultation
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              {/* Sale Dropdown */}
-              <div className="relative group">
-                <Link href="/sale" className="flex items-center space-x-1 text-sm font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors whitespace-nowrap">
-                  <Award className="h-4 w-4" />
-                  <span>Sale</span>
-                  <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
-                </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
-                  <div className="p-2">
-                    <Link href="/sale/clearance" className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 dark:hover:text-red-400 rounded-md transition-colors">
-                      Clearance Items
-                    </Link>
-                    <Link href="/sale/seasonal" className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 dark:hover:text-red-400 rounded-md transition-colors">
-                      Seasonal Sale
-                    </Link>
-                    <Link href="/sale/last-chance" className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 dark:hover:text-red-400 rounded-md transition-colors">
-                      Last Chance
-                    </Link>
-                    <Link href="/sale/outlet" className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 dark:hover:text-red-400 rounded-md transition-colors">
-                      Outlet Items
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </nav>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-black text-gray-900 dark:text-white overflow-hidden">
-          <div className="absolute inset-0 bg-white/20 dark:bg-black/20 backdrop-blur-lg"></div>
-          <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <div className="space-y-4">
-                  <h1 className="text-3xl lg:text-5xl font-bold leading-tight text-gray-900 dark:text-white">
-                    Exquisite Jewelry
-                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-yellow-500">
-                      Timeless Elegance
-                    </span>
-                  </h1>
-                  <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Discover our curated collection of fine jewelry, from stunning engagement rings to custom masterpieces.
-                  </p>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-600/10 to-amber-400/5"></div>
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <Badge className="bg-amber-100 text-amber-800 border-amber-200">
+                  ✨ New Collection Available
+                </Badge>
+                <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
+                  <span className="text-gray-900 dark:text-white">Timeless</span>
+                  <br />
+                  <span className="bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
+                    Elegance
+                  </span>
+                </h1>
+                <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg">
+                  Discover our curated collection of exquisite fine jewelry, crafted with passion and precision for life's most precious moments.
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                  <span className="mr-2">Shop Collection</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+                <Button size="lg" variant="outline" className="border-2 border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white transition-all duration-300">
+                  <Crown className="h-4 w-4 mr-2" />
+                  Custom Design
+                </Button>
+              </div>
+
+              <div className="flex items-center space-x-8 pt-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">500+</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Unique Pieces</div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white">
-                    Shop Collections
-                  </Button>
-                  <Link href="/checkout">
-                    <Button size="lg" variant="outline" className="border-2 border-green-600 text-green-700 hover:bg-green-600 hover:text-white dark:border-green-400 dark:text-green-400 dark:hover:bg-green-400 dark:hover:text-gray-900 transition-all duration-200 bg-transparent w-full sm:w-auto">
-                      <CreditCard className="w-4 h-4 mr-2" />
-                      Try Checkout Demo
-                    </Button>
-                  </Link>
-                  <Button size="lg" variant="outline" className="border-2 border-amber-600 text-amber-700 hover:bg-amber-600 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-200 bg-transparent">
-                    Custom Design
-                  </Button>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">40+</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">5★</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Customer Rating</div>
                 </div>
               </div>
-              <div className="relative">
-                <div className="relative w-full h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-amber-100 to-yellow-50 dark:from-gray-700 dark:to-gray-800">
-                  {/* Placeholder for jewelry store hero image */}
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-amber-400/20 to-amber-600/20 rounded-3xl blur-3xl"></div>
+              <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl p-8 shadow-2xl">
+                <div className="aspect-square relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100 dark:from-gray-700 dark:to-gray-800">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center text-gray-600 dark:text-gray-300">
-                      <Award className="w-16 h-16 mx-auto mb-4 text-amber-600" />
-                      <p className="font-medium text-lg">Your Store Photo</p>
-                      <p className="text-sm opacity-70">Add jewelry-store-hero.jpg to public folder</p>
+                      <Gem className="w-16 h-16 mx-auto mb-4 text-amber-600" />
+                      <p className="font-medium text-lg">Featured Jewelry</p>
+                      <p className="text-sm opacity-70">Your store showcase image</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Featured Categories */}
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Shop by Category
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Discover our stunning collection of fine jewelry, carefully curated for every special moment
+      {/* Featured Products */}
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Featured Collection
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Handpicked pieces that embody luxury, craftsmanship, and timeless beauty
+            </p>
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="bg-gray-200 dark:bg-gray-700 aspect-square rounded-2xl mb-4"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProducts.map((product) => (
+                <Card key={product.id} className="group cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden bg-white dark:bg-gray-900">
+                  <div className="relative aspect-square overflow-hidden">
+                    {product.images.length > 0 ? (
+                      <Image
+                        src={product.images[0]}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-amber-50 to-amber-100 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+                        <Gem className="w-16 h-16 text-amber-600" />
+                      </div>
+                    )}
+                    {product.salePrice && (
+                      <Badge className="absolute top-4 left-4 bg-red-500 text-white">
+                        Sale
+                      </Badge>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <Button size="sm" className="w-full bg-white text-gray-900 hover:bg-amber-50">
+                          View Details
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  <CardContent className="p-6">
+                    <div className="space-y-2">
+                      <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-amber-600 transition-colors">
+                        {product.name}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                        {product.description}
+                      </p>
+                      <div className="flex items-center justify-between pt-2">
+                        <div className="space-y-1">
+                          {product.salePrice ? (
+                            <div className="flex items-center space-x-2">
+                              <span className="text-lg font-bold text-red-600">
+                                ${product.salePrice.toLocaleString()}
+                              </span>
+                              <span className="text-sm text-gray-500 line-through">
+                                ${product.price.toLocaleString()}
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-lg font-bold text-gray-900 dark:text-white">
+                              ${product.price.toLocaleString()}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex space-x-2">
+                          <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                            <Heart className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+
+          <div className="text-center mt-12">
+            <Link href="/products">
+              <Button size="lg" variant="outline" className="border-2 border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white">
+                View All Products
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Collections */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Shop by Collection
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              Curated collections for every occasion and style
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {collections.map((collection) => (
+              <Link key={collection.id} href={`/collections/${collection.slug}`}>
+                <Card className="group cursor-pointer border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                  <div className="relative h-64 overflow-hidden">
+                    {collection.image ? (
+                      <Image
+                        src={collection.image}
+                        alt={collection.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-amber-100 to-amber-200 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
+                        <Crown className="w-12 h-12 text-amber-600" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent">
+                      <div className="absolute bottom-6 left-6 text-white">
+                        <h3 className="text-xl font-bold mb-2">{collection.name}</h3>
+                        <p className="text-sm opacity-90">{collection.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Lifetime Warranty</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Every piece comes with our comprehensive lifetime warranty, ensuring your jewelry remains as beautiful as the day you bought it.
               </p>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600">Engagement Rings</p>
-                      <p className="text-2xl font-bold text-pink-600">250+</p>
-                      <p className="text-xs text-gray-500">Starting at $1,299</p>
-                    </div>
-                    <Heart className="h-8 w-8 text-pink-600 group-hover:scale-110 transition-transform" />
-                  </div>
-                </CardContent>
-              </Card>
 
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600">Necklaces</p>
-                      <p className="text-2xl font-bold text-blue-600">180+</p>
-                      <p className="text-xs text-gray-500">Starting at $599</p>
-                    </div>
-                    <Sparkles className="h-8 w-8 text-blue-600 group-hover:scale-110 transition-transform" />
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Truck className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Free Shipping</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Complimentary insured shipping on all orders over $500, with express delivery options available worldwide.
+              </p>
+            </div>
 
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600">Watches</p>
-                      <p className="text-2xl font-bold text-purple-600">120+</p>
-                      <p className="text-xs text-gray-500">Starting at $899</p>
-                    </div>
-                    <Watch className="h-8 w-8 text-purple-600 group-hover:scale-110 transition-transform" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600">Custom Pieces</p>
-                      <p className="text-2xl font-bold text-amber-600">50+</p>
-                      <p className="text-xs text-gray-500">Starting at $2,499</p>
-                    </div>
-                    <Crown className="h-8 w-8 text-amber-600 group-hover:scale-110 transition-transform" />
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="text-center group">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Master Craftsmanship</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Each piece is meticulously crafted by our master jewelers using the finest materials and time-honored techniques.
+              </p>
             </div>
           </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-amber-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Lifetime Warranty</h3>
-                <p className="text-gray-600">All our jewelry comes with comprehensive lifetime warranty coverage</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Truck className="h-8 w-8 text-amber-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Free Shipping</h3>
-                <p className="text-gray-600">Complimentary shipping on all orders over $500 worldwide</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="h-8 w-8 text-amber-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Expert Craftsmanship</h3>
-                <p className="text-gray-600">Each piece is meticulously crafted by our master jewelers</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
       {/* Footer */}
-      <footer className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white border-t border-gray-200 dark:border-gray-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-8 items-center justify-center rounded-lg">
-                  <Crown className="size-5" />
+      <footer className="bg-gray-900 dark:bg-black text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="space-y-4">
+              <Link href="/" className="flex items-center space-x-3">
+                <div className="size-10 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 p-1">
+                  <Image 
+                    src="/liberty-logo.png" 
+                    alt="Liberty Gold & Diamonds" 
+                    width={32} 
+                    height={32}
+                    className="rounded-md object-contain bg-white"
+                  />
                 </div>
-                <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Gold & Diamonds</span>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Creating timeless jewelry pieces that celebrate life's most precious moments since 1985.
+                <div>
+                  <div className="font-bold text-lg text-amber-400">
+                    Liberty Gold & Diamonds
+                  </div>
+                  <div className="text-xs text-gray-400">
+                    Fine Jewelry Since 1985
+                  </div>
+                </div>
+              </Link>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Creating timeless moments with exquisite jewelry crafted for life's most precious occasions.
               </p>
-              <div className="flex space-x-4">
-                <Facebook className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-amber-500 cursor-pointer" />
-                <Instagram className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-amber-500 cursor-pointer" />
-                <Twitter className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-amber-500 cursor-pointer" />
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg mb-4 text-amber-400">Collections</h3>
+              <div className="space-y-2">
+                <Link href="/rings" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Engagement Rings</Link>
+                <Link href="/necklaces" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Necklaces</Link>
+                <Link href="/earrings" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Earrings</Link>
+                <Link href="/bracelets" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Bracelets</Link>
+                <Link href="/watches" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Watches</Link>
               </div>
             </div>
-            
+
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Collections</h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li><Link href="/rings" className="hover:text-amber-500">Engagement Rings</Link></li>
-                <li><Link href="/necklaces" className="hover:text-amber-500">Necklaces</Link></li>
-                <li><Link href="/earrings" className="hover:text-amber-500">Earrings</Link></li>
-                <li><Link href="/bracelets" className="hover:text-amber-500">Bracelets</Link></li>
-                <li><Link href="/watches" className="hover:text-amber-500">Watches</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Services</h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li><Link href="/custom" className="hover:text-amber-500">Custom Design</Link></li>
-                <li><Link href="/repair" className="hover:text-amber-500">Jewelry Repair</Link></li>
-                <li><Link href="/appraisal" className="hover:text-amber-500">Appraisal Services</Link></li>
-                <li><Link href="/consultation" className="hover:text-amber-500">Personal Consultation</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Contact Info</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">2401 LIBERTY HEIGHTS AVE<br />1ST FLOOR-SPACE #5534<br />BALTIMORE, MD 21215</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Phone className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">(410) 365-2187</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Mail className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">info@libertygolddiamonds.com</span>
-                </div>
+              <h3 className="font-semibold text-lg mb-4 text-amber-400">Services</h3>
+              <div className="space-y-2">
+                <Link href="/custom" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Custom Design</Link>
+                <Link href="/appraisal" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Jewelry Appraisal</Link>
+                <Link href="/repair" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Repair Services</Link>
+                <Link href="/consultation" className="block text-gray-300 hover:text-amber-400 transition-colors text-sm">Consultation</Link>
               </div>
             </div>
-            
+
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">Payment Options</h3>
+              <h3 className="font-semibold text-lg mb-4 text-amber-400">Contact</h3>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <CreditCard className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">All Major Credit Cards</span>
+                  <Phone className="h-4 w-4 text-amber-400" />
+                  <span className="text-gray-300 text-sm">(555) 123-4567</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <DollarSign className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">Cash Payments</span>
+                  <Mail className="h-4 w-4 text-amber-400" />
+                  <span className="text-gray-300 text-sm">info@libertyjewelers.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Calendar className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">Acima Financing Available</span>
+                  <MapPin className="h-4 w-4 text-amber-400" />
+                  <span className="text-gray-300 text-sm">123 Luxury Ave, Diamond District</span>
                 </div>
-                <Link href="/payment-options" className="text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 text-sm font-medium inline-block mt-2">
-                  View All Payment Options →
-                </Link>
+              </div>
+              
+              <div className="flex space-x-4 mt-6">
+                <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors">
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-amber-400 transition-colors">
+                  <Twitter className="h-5 w-5" />
+                </a>
               </div>
             </div>
           </div>
           
-          <div className="border-t border-gray-300 dark:border-gray-800 mt-12 pt-8 text-center">
-            <p className="text-gray-600 dark:text-gray-400">
-              © 2025 Liberty Gold & Diamonds. All rights reserved.
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p className="text-gray-400 text-sm">
+              © 2024 Liberty Gold & Diamonds. All rights reserved. | Privacy Policy | Terms of Service
             </p>
-            <div className="mt-2">
-              <Link 
-                href="/admin/login" 
-                className="text-xs text-gray-400 hover:text-gray-600 dark:text-gray-600 dark:hover:text-gray-400"
-              >
-                Admin
-              </Link>
-            </div>
           </div>
         </div>
       </footer>
     </div>
-  );
+  )
 }
