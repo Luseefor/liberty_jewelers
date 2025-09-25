@@ -334,10 +334,14 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative">
-                <div className="relative w-full h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-amber-100 to-yellow-50 flex items-center justify-center">
-                  <div className="text-center text-gray-600">
-                    <Award className="w-16 h-16 mx-auto mb-2 text-amber-700" />
-                    <p className="font-medium">Hero Jewelry Image</p>
+                <div className="relative w-full h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-amber-100 to-yellow-50 dark:from-gray-700 dark:to-gray-800">
+                  {/* Placeholder for jewelry store hero image */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center text-gray-600 dark:text-gray-300">
+                      <Award className="w-16 h-16 mx-auto mb-4 text-amber-600" />
+                      <p className="font-medium text-lg">Your Store Photo</p>
+                      <p className="text-sm opacity-70">Add jewelry-store-hero.jpg to public folder</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -492,7 +496,7 @@ export default function Home() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">123 Main Street<br />New York, NY 10001</span>
+                  <span className="text-gray-600 dark:text-gray-400">2401 LIBERTY HEIGHTS AVE<br />1ST FLOOR-SPACE #5534<br />BALTIMORE, MD 21215</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-amber-500" />

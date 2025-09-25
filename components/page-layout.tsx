@@ -21,8 +21,14 @@ export default function PageLayout({ children, title, description }: PageLayoutP
             <div className="flex h-16 items-center justify-between">
               {/* Logo */}
               <Link href="/" className="flex items-center space-x-2">
-                <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-8 items-center justify-center rounded-lg shadow-lg">
-                  <Crown className="size-5" />
+                <div className="flex size-10 items-center justify-center rounded-lg shadow-lg overflow-hidden bg-white">
+                  <Image 
+                    src="/liberty-logo.png" 
+                    alt="Liberty Gold & Diamonds Logo" 
+                    width={40} 
+                    height={40}
+                    className="object-contain"
+                  />
                 </div>
                 <span className="text-xl font-bold bg-gradient-to-r from-amber-600 to-yellow-700 bg-clip-text text-transparent">
                   Liberty Gold & Diamonds
@@ -108,8 +114,14 @@ export default function PageLayout({ children, title, description }: PageLayoutP
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-8 items-center justify-center rounded-lg">
-                  <Crown className="size-5" />
+                <div className="flex size-10 items-center justify-center rounded-lg shadow-lg overflow-hidden bg-white">
+                  <Image 
+                    src="/liberty-logo.png" 
+                    alt="Liberty Gold & Diamonds Logo" 
+                    width={40} 
+                    height={40}
+                    className="object-contain"
+                  />
                 </div>
                 <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Gold & Diamonds</span>
               </div>

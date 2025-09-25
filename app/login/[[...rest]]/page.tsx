@@ -1,4 +1,5 @@
 import { Crown } from "lucide-react"
+import Image from "next/image"
 import { SignIn } from "@clerk/nextjs"
 
 export default function LoginPage() {
@@ -7,8 +8,14 @@ export default function LoginPage() {
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="/" className="flex items-center gap-2 font-medium">
-            <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-6 items-center justify-center rounded-md">
-              <Crown className="size-4" />
+            <div className="flex size-8 items-center justify-center rounded-md shadow-lg overflow-hidden bg-white">
+              <Image 
+                src="/liberty-logo.png" 
+                alt="Liberty Gold & Diamonds Logo" 
+                width={32} 
+                height={32}
+                className="object-contain"
+              />
             </div>
             Liberty Gold & Diamonds
           </a>
@@ -56,7 +63,15 @@ export default function LoginPage() {
       <div className="bg-gradient-to-br from-amber-50 to-yellow-50 relative hidden lg:block">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-amber-700">
-            <Crown className="w-24 h-24 mx-auto mb-4" />
+            <div className="flex w-24 h-24 mx-auto mb-4 items-center justify-center rounded-lg shadow-lg overflow-hidden bg-white">
+              <Image 
+                src="/liberty-logo.png" 
+                alt="Liberty Gold & Diamonds Logo" 
+                width={96} 
+                height={96}
+                className="object-contain"
+              />
+            </div>
             <h2 className="text-2xl font-bold mb-2">Welcome Back</h2>
             <p className="text-lg">Continue your jewelry journey</p>
             <p className="text-sm mt-2">Access your account and discover new collections</p>

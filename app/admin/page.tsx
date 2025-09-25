@@ -93,6 +93,9 @@ export default function AdminDashboard() {
   const [showImportModal, setShowImportModal] = useState(false)
   const [csvFile, setCsvFile] = useState<File | null>(null)
   const [isImporting, setIsImporting] = useState(false)
+  const [consultations, setConsultations] = useState<any[]>([])
+  const [loadingConsultations, setLoadingConsultations] = useState(false)
+  const [activeTab, setActiveTab] = useState<'inventory' | 'consultations'>('inventory')
 
   useEffect(() => {
     // Check admin verification
@@ -224,6 +227,47 @@ export default function AdminDashboard() {
     }
   }
 
+  // Consultation functions
+  const fetchConsultations = async () => {
+    setLoadingConsultations(true)
+    try {
+      const response = await fetch(`/api/consultations?adminPassword=${encodeURIComponent('LibertyGoldDiamonds2025!')}`)
+      if (response.ok) {
+        const data = await response.json()
+        setConsultations(data.consultations || [])
+      }
+    } catch (error) {
+      console.error('Error fetching consultations:', error)
+    } finally {
+      setLoadingConsultations(false)
+    }
+  }
+
+  const updateConsultationStatus = async (id: string, status: string) => {
+    try {
+      const response = await fetch(`/api/consultations?adminPassword=${encodeURIComponent('LibertyGoldDiamonds2025!')}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, status }),
+      })
+      
+      if (response.ok) {
+        await fetchConsultations() // Refresh the list
+      }
+    } catch (error) {
+      console.error('Error updating consultation status:', error)
+    }
+  }
+
+  // Fetch consultations when component mounts and when tab changes
+  useEffect(() => {
+    if (isAdminVerified && activeTab === 'consultations') {
+      fetchConsultations()
+    }
+  }, [isAdminVerified, activeTab])
+
   const stats = {
     totalItems: jewelry.length,
     inStock: jewelry.filter(item => item.inStock).length,
@@ -273,8 +317,45 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* Navigation Tabs */}
+        <div className="mb-8">
+          <div className="border-b border-gray-200">
+            <nav className="-mb-px flex space-x-8">
+              <button
+                onClick={() => setActiveTab('inventory')}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === 'inventory'
+                    ? 'border-amber-500 text-amber-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <Package className="h-4 w-4 inline mr-2" />
+                Inventory Management
+              </button>
+              <button
+                onClick={() => setActiveTab('consultations')}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === 'consultations'
+                    ? 'border-amber-500 text-amber-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <Users className="h-4 w-4 inline mr-2" />
+                Consultation Requests
+                {consultations.filter(c => c.status === 'new').length > 0 && (
+                  <Badge className="ml-2 bg-red-500 text-white">
+                    {consultations.filter(c => c.status === 'new').length}
+                  </Badge>
+                )}
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        {activeTab === 'inventory' && (
+          <>
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Items</CardTitle>
@@ -497,6 +578,191 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </div>
+          </div>
+        )}
+          </>
+        )}
+
+        {activeTab === 'consultations' && (
+          <div className="space-y-6">
+            {/* Consultations Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Total Requests</CardTitle>
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{consultations.length}</div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">New Requests</CardTitle>
+                  <Badge className="bg-red-100 text-red-800">New</Badge>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-red-600">
+                    {consultations.filter(c => c.status === 'new').length}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">In Progress</CardTitle>
+                  <Badge className="bg-blue-100 text-blue-800">Progress</Badge>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {consultations.filter(c => c.status === 'contacted' || c.status === 'scheduled').length}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Completed</CardTitle>
+                  <Badge className="bg-green-100 text-green-800">Done</Badge>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-green-600">
+                    {consultations.filter(c => c.status === 'completed').length}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Consultations List */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Consultation Requests</CardTitle>
+                    <CardDescription>Manage customer consultation requests</CardDescription>
+                  </div>
+                  <Button onClick={fetchConsultations} variant="outline">
+                    <Search className="h-4 w-4 mr-2" />
+                    Refresh
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {loadingConsultations ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+                  </div>
+                ) : consultations.length === 0 ? (
+                  <div className="text-center py-8 text-gray-500">
+                    No consultation requests found.
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {consultations.map((consultation) => (
+                      <div key={consultation.id} className="border border-gray-200 rounded-lg p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <h3 className="font-semibold text-lg">
+                              {consultation.firstName} {consultation.lastName}
+                            </h3>
+                            <p className="text-sm text-gray-600">
+                              {consultation.consultationType}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              Submitted: {new Date(consultation.submittedAt).toLocaleString()}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Badge
+                              className={
+                                consultation.status === 'new' 
+                                  ? 'bg-red-100 text-red-800'
+                                  : consultation.status === 'contacted'
+                                  ? 'bg-blue-100 text-blue-800'
+                                  : consultation.status === 'scheduled'
+                                  ? 'bg-purple-100 text-purple-800'
+                                  : 'bg-green-100 text-green-800'
+                              }
+                            >
+                              {consultation.status.charAt(0).toUpperCase() + consultation.status.slice(1)}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                          <div>
+                            <p className="text-sm">
+                              <strong>Email:</strong> {consultation.email}
+                            </p>
+                            <p className="text-sm">
+                              <strong>Phone:</strong> {consultation.phone}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-sm">
+                              <strong>Message:</strong>
+                            </p>
+                            <p className="text-sm text-gray-700 mt-1">
+                              {consultation.message}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-2">
+                          {consultation.status === 'new' && (
+                            <>
+                              <Button
+                                size="sm"
+                                onClick={() => updateConsultationStatus(consultation.id, 'contacted')}
+                                className="bg-blue-600 hover:bg-blue-700 text-white"
+                              >
+                                Mark as Contacted
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => updateConsultationStatus(consultation.id, 'scheduled')}
+                              >
+                                Mark as Scheduled
+                              </Button>
+                            </>
+                          )}
+                          {consultation.status === 'contacted' && (
+                            <Button
+                              size="sm"
+                              onClick={() => updateConsultationStatus(consultation.id, 'scheduled')}
+                              className="bg-purple-600 hover:bg-purple-700 text-white"
+                            >
+                              Mark as Scheduled
+                            </Button>
+                          )}
+                          {consultation.status === 'scheduled' && (
+                            <Button
+                              size="sm"
+                              onClick={() => updateConsultationStatus(consultation.id, 'completed')}
+                              className="bg-green-600 hover:bg-green-700 text-white"
+                            >
+                              Mark as Completed
+                            </Button>
+                          )}
+                          {consultation.status !== 'completed' && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => updateConsultationStatus(consultation.id, 'completed')}
+                              className="text-green-600 border-green-600 hover:bg-green-50"
+                            >
+                              Complete
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         )}
       </div>
