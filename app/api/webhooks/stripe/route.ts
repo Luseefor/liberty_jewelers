@@ -3,13 +3,26 @@ import Stripe from 'stripe'
 import { headers } from 'next/headers'
 
 // Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-08-27.basil',
-})
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
+if (!stripeSecretKey || stripeSecretKey === 'sk_test_YOUR_ACTUAL_STRIPE_SECRET_KEY_HERE') {
+  console.warn('Stripe webhook secret key not configured.')
+}
+
+const stripe = stripeSecretKey && stripeSecretKey !== 'sk_test_YOUR_ACTUAL_STRIPE_SECRET_KEY_HERE'
+  ? new Stripe(stripeSecretKey, { apiVersion: '2025-08-27.basil' })
+  : null
 
 export async function POST(request: NextRequest) {
+  // Check if Stripe is properly configured
+  if (!stripe || !endpointSecret || endpointSecret === 'whsec_YOUR_WEBHOOK_SECRET_HERE') {
+    return NextResponse.json(
+      { error: 'Webhook processing is not configured. Please contact support.' },
+      { status: 503 }
+    )
+  }
+
   const body = await request.text()
   const headersList = await headers()
   const signature = headersList.get('stripe-signature')

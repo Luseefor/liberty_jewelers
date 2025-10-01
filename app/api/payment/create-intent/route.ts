@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-// Initialize Stripe with secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-08-27.basil',
+// Initialize Stripe at runtime (server-side)
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+if (!stripeSecretKey) {
+  throw new Error('Stripe secret key not configured. Payment processing will not work.')
+}
+
+const stripe = new Stripe(stripeSecretKey, {
+  apiVersion: '2024-06-20', // valid Stripe API version
 })
 
 export async function POST(request: NextRequest) {
@@ -27,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     // Create payment intent
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(amount), // Ensure amount is an integer
+      amount: Math.round(amount), // must be integer
       currency: currency.toLowerCase(),
       description: `Liberty Gold & Diamonds - ${items.length} item(s)`,
       metadata: {
@@ -41,9 +46,7 @@ export async function POST(request: NextRequest) {
         customer_name: customerInfo?.name || '',
         store: 'Liberty Gold & Diamonds'
       },
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      automatic_payment_methods: { enabled: true },
     })
 
     return NextResponse.json({
@@ -52,7 +55,7 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Payment intent creation error:', error)
-    
+
     if (error instanceof Stripe.errors.StripeError) {
       return NextResponse.json(
         { error: error.message },
@@ -91,7 +94,7 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error('Payment intent retrieval error:', error)
-    
+
     if (error instanceof Stripe.errors.StripeError) {
       return NextResponse.json(
         { error: error.message },
