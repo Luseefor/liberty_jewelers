@@ -8,9 +8,8 @@ if (!stripeSecretKey) {
 }
 
 const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: '2024-06-20', // valid Stripe API version
+  apiVersion: '2025-08-27.basil', // matches the Stripe TypeScript type
 })
-
 export async function POST(request: NextRequest) {
   try {
     const { amount, currency = 'usd', items, customerInfo } = await request.json()
