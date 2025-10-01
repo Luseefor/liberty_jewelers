@@ -1,17 +1,18 @@
 import { Crown } from "lucide-react"
 import { SignIn } from "@clerk/nextjs"
+import Link from "next/link"
 
 export default function LoginPage() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
-          <a href="/" className="flex items-center gap-2 font-medium">
+          <Link href="/" className="flex items-center gap-2 font-medium">
             <div className="bg-gradient-to-r from-amber-400 to-yellow-600 text-white flex size-6 items-center justify-center rounded-md">
               <Crown className="size-4" />
             </div>
             Liberty Gold & Diamonds
-          </a>
+          </Link>
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-md">

@@ -1,7 +1,7 @@
 import PageLayout from "@/components/page-layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, ArrowLeft, Heart, Trash2 } from "lucide-react";
+import { ShoppingBag, ArrowLeft, Heart } from "lucide-react";
 import Link from "next/link";
 
 export default function CartPage() {

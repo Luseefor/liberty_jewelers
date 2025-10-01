@@ -106,7 +106,7 @@ export default function ClearancePage() {
               Clearance Items Coming Soon
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              We're preparing an amazing selection of clearance jewelry with savings up to 70% off. Sign up to be notified when the clearance sale begins!
+              We&apos;re preparing an amazing selection of clearance jewelry with savings up to 70% off. Sign up to be notified when the clearance sale begins!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">

@@ -106,7 +106,7 @@ export default function SeasonalSalePage() {
               Seasonal Collection Coming Soon
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              We're curating a beautiful selection of seasonal jewelry with special holiday pricing. Be the first to know when our seasonal sale launches!
+              We&apos;re curating a beautiful selection of seasonal jewelry with special holiday pricing. Be the first to know when our seasonal sale launches!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">

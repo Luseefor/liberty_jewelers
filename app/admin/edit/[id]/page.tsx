@@ -133,7 +133,7 @@ export default function EditJewelryPage() {
     redirect('/admin/login')
   }
 
-  const handleInputChange = (field: keyof JewelryFormData, value: any) => {
+  const handleInputChange = (field: keyof JewelryFormData, value: string | string[] | File[]) => {
     setFormData(prev => ({
       ...prev,
       [field]: value

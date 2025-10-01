@@ -10,10 +10,8 @@ import { Badge } from '@/components/ui/badge'
 import { 
   Save, 
   ArrowLeft, 
-  Upload, 
   X,
-  Plus,
-  Minus
+  Plus
 } from 'lucide-react'
 import { useUser } from '@clerk/nextjs'
 import { redirect, useRouter } from 'next/navigation'
@@ -102,9 +100,9 @@ export default function AddJewelryPage() {
     if (!adminVerified) {
       router.push('/admin/login')
     }
-  }, [])
+  }, [router])
 
-  const handleInputChange = (field: keyof JewelryFormData, value: any) => {
+  const handleInputChange = (field: keyof JewelryFormData, value: string | string[] | File[]) => {
     setFormData(prev => ({
       ...prev,
       [field]: value

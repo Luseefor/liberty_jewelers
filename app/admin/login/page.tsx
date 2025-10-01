@@ -49,8 +49,8 @@ export default function AdminLoginPage() {
       } else {
         setError('Invalid admin password. Please try again.')
       }
-    } catch (error) {
-      setError('An error occurred. Please try again.')
+        } catch {
+      setError('Failed to verify password')
     } finally {
       setIsVerifying(false)
     }

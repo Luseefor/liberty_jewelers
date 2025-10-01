@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
@@ -10,11 +10,8 @@ import {
   Heart, 
   ShoppingCart, 
   Filter, 
-  SlidersHorizontal, 
   Grid3X3, 
-  List, 
-  Star,
-  ChevronDown,
+  List,
   X,
   Search,
   Gem
@@ -50,14 +47,9 @@ export default function ProductsPage() {
     { value: 'custom', label: 'Custom' }
   ]
 
-  const materials = ['Gold', 'Platinum', 'Silver', 'Rose Gold', 'White Gold']
-  const gemstones = ['Diamond', 'Ruby', 'Sapphire', 'Emerald', 'Pearl', 'Amethyst']
 
-  useEffect(() => {
-    fetchProducts()
-  }, [filters, searchQuery, sortBy])
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setLoading(true)
     try {
       const params = new URLSearchParams()
@@ -105,9 +97,13 @@ export default function ProductsPage() {
       console.error('Error fetching products:', error)
     }
     setLoading(false)
-  }
+  }, [filters, searchQuery, sortBy])
 
-  const handleFilterChange = (key: keyof ProductFilters, value: any) => {
+  useEffect(() => {
+    fetchProducts()
+  }, [fetchProducts])
+
+  const handleFilterChange = (key: keyof ProductFilters, value: string | boolean | number | undefined) => {
     setFilters(prev => ({
       ...prev,
       [key]: value

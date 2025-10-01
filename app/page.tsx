@@ -1,17 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Shield, Truck, Award, Phone, Mail, MapPin, Instagram, Facebook, Twitter, Heart, Sparkles, ShoppingBag, Crown, Diamond, Watch, User, Search, Menu, ChevronDown, CreditCard, DollarSign, Calendar } from "lucide-react";
+import { Star, Shield, Truck, Award, Phone, Mail, MapPin, Instagram, Facebook, Twitter, Heart, Sparkles, ShoppingBag, Crown, Diamond, Watch, Search, ChevronDown, CreditCard, DollarSign, Calendar } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-// Simple Badge component
-const Badge = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${className}`}>
-    {children}
-  </span>
-);
+
 
 export default function Home() {
   return (
@@ -463,7 +458,7 @@ export default function Home() {
                 <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Gold & Diamonds</span>
               </div>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Creating timeless jewelry pieces that celebrate life's most precious moments.
+                Creating timeless jewelry pieces that celebrate life&apos;s most precious moments.
               </p>
               <div className="flex space-x-4">
                 <Facebook className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-amber-500 cursor-pointer" />

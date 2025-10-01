@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       currency: currency.toLowerCase(),
       description: `Liberty Gold & Diamonds - ${items.length} item(s)`,
       metadata: {
-        items: JSON.stringify(items.map((item: any) => ({
+        items: JSON.stringify(items.map((item: { id: string; name: string; price: number; quantity: number }) => ({
           id: item.id,
           name: item.name,
           price: item.price,

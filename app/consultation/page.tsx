@@ -1,8 +1,7 @@
 import PageLayout from "@/components/page-layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Calendar, MessageCircle, Video, Clock, CheckCircle } from "lucide-react";
-import Link from "next/link";
+import { Users, MessageCircle, Video, Clock, CheckCircle } from "lucide-react";
 
 export default function ConsultationPage() {
   const consultationTypes = [

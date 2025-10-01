@@ -6,16 +6,15 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { 
-  ArrowLeft, 
-  Save, 
+import {
+  ArrowLeft,
+  Save,
   Store,
   Mail,
   Phone,
   MapPin,
   Clock,
   CreditCard,
-  Shield,
   Palette,
   Settings as SettingsIcon
 } from 'lucide-react'
@@ -117,7 +116,7 @@ export default function AdminSettingsPage() {
     redirect('/admin/login')
   }
 
-  const handleInputChange = (field: keyof StoreSettings, value: any) => {
+    const handleInputChange = (field: keyof StoreSettings, value: string | string[] | boolean) => {
     setSettings(prev => ({
       ...prev,
       [field]: value

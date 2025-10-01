@@ -48,7 +48,7 @@ export default function LastChancePage() {
           </h1>
           
           <p className="text-xl text-orange-100 mb-8 max-w-2xl mx-auto">
-            Final markdowns on discontinued items. These are your last chance to own these beautiful pieces at incredible prices before they're gone forever.
+            Final markdowns on discontinued items. These are your last chance to own these beautiful pieces at incredible prices before they&apos;re gone forever.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -106,7 +106,7 @@ export default function LastChancePage() {
               Last Chance Items Coming Soon
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              We're identifying final inventory pieces for maximum savings. These will be true last chance opportunities with no restocks available.
+              We&apos;re identifying final inventory pieces for maximum savings. These will be true last chance opportunities with no restocks available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white">

@@ -1,5 +1,5 @@
 import PageLayout from "@/components/page-layout";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { Button } from "@/components/ui/button";
 import { Crown, Heart, Infinity } from "lucide-react";
 import Link from "next/link";

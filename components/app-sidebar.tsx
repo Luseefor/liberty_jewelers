@@ -14,7 +14,7 @@ import {
   Watch,
   CircleUser,
 } from "lucide-react"
-import { useUser, useClerk } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"

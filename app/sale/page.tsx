@@ -145,7 +145,7 @@ export default function SalePage() {
               Featured Deals
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Don't miss out on these incredible limited-time offers on our most popular pieces.
+              Don&apos;t miss out on these incredible limited-time offers on our most popular pieces.
             </p>
           </div>
           
@@ -190,7 +190,7 @@ export default function SalePage() {
       <section className="py-20 bg-gradient-to-r from-red-600 via-rose-600 to-pink-600">
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Don't Miss Out on These Amazing Deals
+            Don&apos;t Miss Out on These Amazing Deals
           </h2>
           <p className="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
             Our sale events are limited time only. Sign up for notifications to be the first to know about new sales and exclusive offers.

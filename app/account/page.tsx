@@ -1,7 +1,7 @@
 import PageLayout from '@/components/page-layout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { User, Mail, Phone, MapPin, Edit, Shield, CreditCard } from 'lucide-react'
+import { User, MapPin, Edit, Shield, CreditCard } from 'lucide-react'
 
 export default function AccountPage() {
   return (
