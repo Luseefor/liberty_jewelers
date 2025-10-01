@@ -31,7 +31,6 @@ export function ThemeProvider({
   defaultTheme = "system",
   storageKey = "liberty-gold-diamonds-theme",
   attribute = "class",
-  defaultAttribute = "data-theme",
   themeValue,
   disableTransitionOnChange = false,
   ...props

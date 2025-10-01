@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js'
 import {
   Elements,
@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { 
   CreditCard, 
@@ -76,14 +75,7 @@ function CheckoutForm({ items, onSuccess, onError }: CheckoutFormProps) {
 
   const total = calculateTotal(items)
 
-  // Create payment intent when component mounts
-  useEffect(() => {
-    if (items.length > 0) {
-      createPaymentIntent()
-    }
-  }, [items])
-
-  const createPaymentIntent = async () => {
+  const createPaymentIntent = useCallback(async () => {
     try {
       const response = await fetch('/api/payment/create-intent', {
         method: 'POST',
@@ -106,12 +98,19 @@ function CheckoutForm({ items, onSuccess, onError }: CheckoutFormProps) {
         setPaymentError(data.error || 'Failed to create payment')
         onError?.(data.error)
       }
-    } catch (error) {
+    } catch {
       const errorMessage = 'Network error occurred'
       setPaymentError(errorMessage)
       onError?.(errorMessage)
     }
-  }
+  }, [total, items, customerInfo, onError])
+
+  // Create payment intent when component mounts
+  useEffect(() => {
+    if (items.length > 0) {
+      createPaymentIntent()
+    }
+  }, [items, createPaymentIntent])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -380,9 +379,7 @@ function CheckoutForm({ items, onSuccess, onError }: CheckoutFormProps) {
   )
 }
 
-interface StripeCheckoutProps extends CheckoutFormProps {}
-
-export default function StripeCheckout({ items, onSuccess, onError }: StripeCheckoutProps) {
+export default function StripeCheckout({ items, onSuccess, onError }: CheckoutFormProps) {
   const options: StripeElementsOptions = {
     appearance: {
       theme: 'stripe',
