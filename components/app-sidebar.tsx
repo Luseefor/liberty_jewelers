@@ -211,7 +211,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="flex items-center gap-2 px-2 py-4 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:justify-center">
           <div className="flex size-10 items-center justify-center rounded-lg shadow-lg overflow-hidden bg-white">
             <Image 
-              src="/liberty-logo.png" 
+              src="/favicon.ico" 
               alt="Liberty Gold & Diamonds Logo" 
               width={40} 
               height={40}

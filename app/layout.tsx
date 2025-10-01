@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   title: "Liberty Gold & Diamonds | Exquisite Fine Jewelry & Custom Designs",
   description: "Discover luxury jewelry at Liberty Gold & Diamonds. From engagement rings to custom pieces, we offer the finest diamonds, gold, and precious gemstones. Quality craftsmanship since 1985.",
   icons: {
-    icon: '/liberty-logo.png',
-    apple: '/liberty-logo.png',
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 };
 

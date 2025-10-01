@@ -26,7 +26,7 @@ export default function Home() {
               <Link href="/" className="flex items-center space-x-2">
                 <div className="flex size-10 items-center justify-center rounded-lg shadow-lg overflow-hidden bg-white">
                   <Image 
-                    src="/liberty-logo.png" 
+                    src="/favicon.ico" 
                     alt="Liberty Gold & Diamonds Logo" 
                     width={40} 
                     height={40}
@@ -109,7 +109,8 @@ export default function Home() {
                   <span>All Collections</span>
                   <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                 </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200" style={{zIndex: 999999, position: 'absolute'}}>
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-200" style={{zIndex: 999999, position: 'absolute'}}>
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
                   <div className="p-2">
                     <Link href="/collections/new-arrivals" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
                       New Arrivals
@@ -133,7 +134,8 @@ export default function Home() {
                   <span>Rings</span>
                   <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                 </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-200 z-[99999]">
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
                   <div className="p-2">
                     <Link href="/rings/engagement" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
                       Engagement Rings
@@ -157,7 +159,8 @@ export default function Home() {
                   <span>Necklaces</span>
                   <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                 </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-200 z-[99999]">
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
                   <div className="p-2">
                     <Link href="/necklaces/pendants" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
                       Pendants
@@ -181,7 +184,8 @@ export default function Home() {
                   <span>Earrings</span>
                   <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                 </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-200 z-[99999]">
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
                   <div className="p-2">
                     <Link href="/earrings/studs" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
                       Stud Earrings
@@ -205,7 +209,8 @@ export default function Home() {
                   <span>Bracelets</span>
                   <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                 </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-200 z-[99999]">
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
                   <div className="p-2">
                     <Link href="/bracelets/tennis" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
                       Tennis Bracelets
@@ -229,7 +234,8 @@ export default function Home() {
                   <span>Watches</span>
                   <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                 </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-200 z-[99999]">
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
                   <div className="p-2">
                     <Link href="/watches/luxury" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
                       Luxury Watches
@@ -253,7 +259,8 @@ export default function Home() {
                   <span>Custom Design</span>
                   <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                 </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200" style={{zIndex: 999999, position: 'absolute'}}>
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-200" style={{zIndex: 999999, position: 'absolute'}}>
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
                   <div className="p-2">
                     <Link href="/custom/engagement-rings" className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-amber-600 dark:hover:text-amber-400 rounded-md transition-colors">
                       Custom Engagement Rings
@@ -277,7 +284,8 @@ export default function Home() {
                   <span>Sale</span>
                   <ChevronDown className="h-3 w-3 ml-1 group-hover:rotate-180 transition-transform duration-200" />
                 </Link>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[99999]">
+                <div className="absolute top-full left-0 mt-1 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible hover:opacity-100 hover:visible transition-all duration-200 z-[99999]">
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent"></div>
                   <div className="p-2">
                     <Link href="/sale/clearance" className="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 dark:hover:text-red-400 rounded-md transition-colors">
                       Clearance Items
@@ -322,23 +330,21 @@ export default function Home() {
                   <Button size="lg" className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white">
                     Shop Collections
                   </Button>
-                  <Link href="/checkout">
-                    <Button size="lg" variant="outline" className="border-2 border-green-600 text-green-700 hover:bg-green-600 hover:text-white dark:border-green-400 dark:text-green-400 dark:hover:bg-green-400 dark:hover:text-gray-900 transition-all duration-200 bg-transparent w-full sm:w-auto">
-                      <CreditCard className="w-4 h-4 mr-2" />
-                      Try Checkout Demo
-                    </Button>
-                  </Link>
                   <Button size="lg" variant="outline" className="border-2 border-amber-600 text-amber-700 hover:bg-amber-600 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-200 bg-transparent">
                     Custom Design
                   </Button>
                 </div>
               </div>
               <div className="relative">
-                <div className="relative w-full h-64 lg:h-80 rounded-2xl overflow-hidden bg-gradient-to-br from-amber-100 to-yellow-50 flex items-center justify-center">
-                  <div className="text-center text-gray-600">
-                    <Award className="w-16 h-16 mx-auto mb-2 text-amber-700" />
-                    <p className="font-medium">Hero Jewelry Image</p>
-                  </div>
+                <div className="relative w-full h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl">
+                  <Image 
+                    src="/hero-jewelry.jpg" 
+                    alt="Exquisite Liberty Gold & Diamonds Jewelry Collection" 
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
               </div>
             </div>
@@ -457,7 +463,7 @@ export default function Home() {
                 <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Gold & Diamonds</span>
               </div>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Creating timeless jewelry pieces that celebrate life's most precious moments since 1985.
+                Creating timeless jewelry pieces that celebrate life's most precious moments.
               </p>
               <div className="flex space-x-4">
                 <Facebook className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-amber-500 cursor-pointer" />
@@ -492,7 +498,7 @@ export default function Home() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-5 h-5 text-amber-500" />
-                  <span className="text-gray-600 dark:text-gray-400">123 Main Street<br />New York, NY 10001</span>
+                  <span className="text-gray-600 dark:text-gray-400">MONDAWMIN MALL<br />2401 Liberty Heights Ave<br />1st Floor - SPACE #5534<br />Baltimore, MD 21215</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-amber-500" />
