@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Crown, Search, Heart, ShoppingBag, Menu } from "lucide-react";
+import { Crown, Search, Heart, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
@@ -120,7 +120,7 @@ export default function PageLayout({ children, title, description }: PageLayoutP
                 <span className="text-xl font-bold text-gray-900 dark:text-white">Liberty Gold & Diamonds</span>
               </div>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Creating timeless jewelry pieces that celebrate life's most precious moments since 1985.
+                Creating timeless jewelry pieces that celebrate life&apos;s most precious moments since 1985.
               </p>
             </div>
             

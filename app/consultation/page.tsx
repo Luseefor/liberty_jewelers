@@ -184,7 +184,7 @@ export default function ConsultationPage() {
                 <textarea
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                  placeholder="Describe what you're looking for..."
+                  placeholder="Describe what you&apos;re looking for..."
                 ></textarea>
               </div>
               <Button size="lg" className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white">

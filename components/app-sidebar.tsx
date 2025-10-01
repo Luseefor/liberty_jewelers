@@ -5,15 +5,11 @@ import Image from "next/image"
 import {
   Gem,
   Heart,
-  Crown,
   Sparkles,
   ShoppingBag,
-  Search,
   User,
   Bookmark,
   Gift,
-  Star,
-  Award,
   Diamond,
   Watch,
   CircleUser,
@@ -177,7 +173,6 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user, isSignedIn } = useUser()
-  const { signOut } = useClerk()
 
   // Dynamic user data based on authentication state
   const userData = isSignedIn && user ? {

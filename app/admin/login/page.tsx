@@ -103,7 +103,7 @@ export default function AdminLoginPage() {
                 <p className="text-red-600 font-medium">Your email: {userEmail}</p>
                 <p className="text-red-600">Expected: ghimirerijan199@gmail.com</p>
                 <p className="text-red-500 mt-1">
-                  Make sure you're signed in with the correct Gmail account.
+                  Make sure you&apos;re signed in with the correct Gmail account.
                 </p>
               </div>
             </div>
